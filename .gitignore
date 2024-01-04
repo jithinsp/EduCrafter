@@ -1,0 +1,27 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# Ignore everything in the educrafter-frontend folder except what is explicitly tracked
+
+/educrafter-frontend/*
+!/educrafter-frontend/.gitignore
+!/educrafter-frontend/**/
+
+/api-gateway/*
+!/api-gateway/.gitignore
+!/api-gateway/**/
+
+/auth-service/*
+!/auth-service/.gitignore
+!/auth-service/**/
+
+/config-server/*
+!/config-server/.gitignore
+!/config-server/**/
+
+/service-registry/*
+!/service-registry/.gitignore
+!/service-registry/**/
+
+/user/*
+!/user/.gitignore
+!/user/**/

@@ -1,0 +1,142 @@
+spring:
+  application:
+    name: api-gateway
+  config:
+    import: "optional:configserver:http://localhost:8088"
+
+
+
+
+
+#  cloud:
+#    gateway:
+#      globalcors:
+#        corsConfigurations:
+#          '[/**]':
+#            allowedOrigins: "http://localhost:4200"
+#            allowedHeaders: "*"
+#            allowedMethods:
+#              - GET
+#              - POST
+#              - DELETE
+#      routes:
+#        - id: chronicle-register
+#          uri: lb://chronicle-register
+#          predicates:
+#            - Path=/register/**
+#        - id: chronicle-backend
+#          uri: lb://chronicle-backend
+#          predicates:
+#            - Path=/api/**
+#            - Path=/admin/**
+#            - Path=/login/**
+#            - Path=/signup/**
+#        - id: chronicle-accounts
+#          uri: lb://chronicle-accounts
+#          predicates:
+#            - Path=/accounts/**
+#          filters:
+#            - AuthenticationFilter
+
+
+#      routes:
+#        - id: chronicle-register
+#          uri: lb://chronicle-register
+#          predicates:
+#            - Path=/register/**
+#        - id: chronicle-backend
+#          uri: lb://chronicle-backend
+#          predicates:
+#            - Path=/api/**
+#            - Path=/admin/**
+#            - Path=/login/**
+#            - Path=/signup/**
+
+#      globalcors:
+#        corsConfigurations:
+#          '[/**]':
+#            allowedOrigins: 'http://localhost:4200'
+#            allowedHeaders:
+#              - Content-Type
+#            allowedMethods:
+#              - GET
+#              - POST
+#              - PUT
+#              - DELETE
+#              - OPTIONS
+
+#Suhan
+#spring:
+#  application:
+#    name: API-GATEWAY
+#
+#  cloud:
+#    gateway:
+#      globalcors:
+#        corsConfigurations:
+#          '[/**]':
+#            allowedOrigins: "http://localhost:3000"
+#            allowedHeaders: "*"
+#            allowedMethods:
+#              - GET
+#              - POST
+#              - DELETE
+#      #          '/auth/token':
+#      #            allowedOrigins: "http://localhost:3000"
+#      #            allowedHeaders: "*"
+#      #            allowedMethods:
+#      #              - GET
+#      #              - POST
+#      #              - OPTIONS
+#
+#      routes:
+#        - id: ADMIN-SERVICE
+#          uri: lb://ADMIN-SERVICE
+#          predicates:
+#            - Path=/admin/**
+#          filters:
+#            - AuthenticationFilter
+#
+#        - id: AUTH-SERVICE
+#          uri: lb://AUTH-SERVICE
+#          predicates:
+#            - Path=/auth/**
+#
+#        - id: APPOINTMENT-SERVICE
+#          uri: lb://APPOINTMENT-SERVICE
+#          predicates:
+#            - Path=/appointment/**
+#
+#
+#        - id: USER-SERVICE
+#          uri: lb://USER-SERVICE
+#          predicates:
+#            - Path=/user/**
+#          filters:
+#            - AuthenticationFilter
+#
+#        - id: DOCTOR-SERVICE
+#          uri: lb://DOCTOR-SERVICE
+#          predicates:
+#            - Path=/doctor/**
+#          filters:
+#            - AuthenticationFilter
+
+
+#server:
+#  port: 8060
+#
+#eureka:
+#  client:
+#    serviceUrl:
+#      defaultZone: http://localhost:8761/eureka/
+#
+#management:
+#  tracing:
+#    sampling:
+#      probability: 1.0
+#      # we are adding this to publish 100% logs to zipkin
+#
+#app:
+#  client:
+#    url: http://localhost:4200

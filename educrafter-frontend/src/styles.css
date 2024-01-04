@@ -1,0 +1,31 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/dist/css/bootstrap.min.css";
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+@import "~@angular/material/prebuilt-themes/indigo-pink";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.green-snackbar {
+    background-color: green;
+    color: white;
+}
+
+.green-snackbar button{
+    background-color: green;
+    color: white !important;
+    border: none;
+}
+
+.red-snackbar {
+    background: red;
+    color: white;
+}
+
+.red-snackbar buttton {
+    background-color: red;
+    color: white !important;
+    border: none;
+}

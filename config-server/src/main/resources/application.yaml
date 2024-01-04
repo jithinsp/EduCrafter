@@ -1,0 +1,7 @@
+server:
+  port: 8088
+
+spring:
+  profiles:
+    active: native #default is git
+#    this line specifies that no git link needed and it will take from the native yml
