@@ -4,7 +4,7 @@ import com.corner.app.dto.RegisterRequest;
 import com.corner.app.dto.SignupRequest;
 import com.corner.app.entity.Role;
 import com.corner.app.entity.UserCredential;
-import com.corner.app.feign.UserClient;
+//import com.corner.app.feign.UserClient;
 import com.corner.app.repository.UserRepository;
 import com.corner.app.service.AuthService;
 import org.springframework.beans.BeanUtils;
@@ -19,8 +19,8 @@ public class AuthServiceImpl implements AuthService {
     UserRepository userRepository;
     @Autowired
     PasswordEncoder passwordEncoder;
-    @Autowired
-    UserClient userClient;
+//    @Autowired
+//    UserClient userClient;
 
     @Override
     public UserCredential createUser(SignupRequest signupRequest) {

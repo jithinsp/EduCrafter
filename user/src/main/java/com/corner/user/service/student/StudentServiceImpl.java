@@ -7,10 +7,14 @@ import com.corner.user.entity.Role;
 import com.corner.user.entity.StudentEntity;
 import com.corner.user.entity.UserEntity;
 import com.corner.user.repository.StudentRepository;
+import com.corner.user.util.JwtUtil;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class StudentServiceImpl implements StudentService{
@@ -20,6 +24,8 @@ public class StudentServiceImpl implements StudentService{
     PasswordEncoder passwordEncoder;
     @Autowired
     LoginClient loginClient;
+    @Autowired
+    JwtUtil jwtUtil;
 
     public StudentEntity addStudent(RegisterStudentRequest registerStudentRequest) {
         if(studentRepository.existsByEmail(registerStudentRequest.getEmail())){
@@ -38,4 +44,23 @@ public class StudentServiceImpl implements StudentService{
         System.out.println("successfully registered");
         return newStudent;
     }
-}
+
+    public List<StudentEntity> getAllByRole(Role role) {
+        List<StudentEntity> users = studentRepository.findByRole(role);
+        return users;
+        }
+
+    public String extractUsername(HttpServletRequest request) {
+        String header = request.getHeader("Authorization");
+        String token = null;
+        if (header.startsWith("Bearer ")) {
+            token = header.substring(7);
+        }
+        String username =jwtUtil.extractUsername(token);
+        return username;
+    }
+
+    public StudentEntity getUserByEmail(String email) {
+        return studentRepository.findByEmail(email);
+    }
+    }

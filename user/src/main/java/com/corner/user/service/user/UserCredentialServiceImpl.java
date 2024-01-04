@@ -10,10 +10,16 @@ import com.corner.user.entity.StudentEntity;
 import com.corner.user.entity.UserEntity;
 import com.corner.user.repository.StudentRepository;
 import com.corner.user.repository.UserCredentialRepository;
+import com.corner.user.util.JwtUtil;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class UserCredentialServiceImpl implements UserCredentialService {
@@ -25,6 +31,8 @@ public class UserCredentialServiceImpl implements UserCredentialService {
     PasswordEncoder passwordEncoder;
     @Autowired
     LoginClient loginClient;
+    @Autowired
+    JwtUtil jwtUtil;
 
     public UserEntity addAdmin(RegisterStudentRequest registerStudentRequest) {
         if(userCredentialRepository.existsByEmail(registerStudentRequest.getEmail())){
@@ -62,6 +70,11 @@ public class UserCredentialServiceImpl implements UserCredentialService {
         return newTeacher;
     }
 
+    public List<UserEntity> getAllByRole(Role role) {
+        List<UserEntity> users = userCredentialRepository.findByRole(role);
+        return users;
+    }
+
     public UserEntity addParent(RegisterParentRequest registerParentRequest) {
         if(userCredentialRepository.existsByEmail(registerParentRequest.getEmail())){
             throw new RuntimeException("Try with a different mail id");
@@ -82,4 +95,20 @@ public class UserCredentialServiceImpl implements UserCredentialService {
         loginClient.signupUser(loginDetails);
         return newParent;
     }
+
+
+    public String extractUsername(HttpServletRequest request) {
+        String header = request.getHeader("Authorization");
+        String token = null;
+        if (header.startsWith("Bearer ")) {
+            token = header.substring(7);
+        }
+        String username =jwtUtil.extractUsername(token);
+        return username;
+    }
+
+    public UserEntity getUserByEmail(String email) {
+        return userCredentialRepository.findByEmail(email);
+    }
+
 }

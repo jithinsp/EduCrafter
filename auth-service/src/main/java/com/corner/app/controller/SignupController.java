@@ -3,7 +3,7 @@ package com.corner.app.controller;
 import com.corner.app.dto.RegisterRequest;
 import com.corner.app.dto.SignupRequest;
 import com.corner.app.entity.UserCredential;
-import com.corner.app.feign.UserClient;
+//import com.corner.app.feign.UserClient;
 import com.corner.app.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class SignupController {
     @Autowired
     AuthService authService;
-
 
     @PostMapping("signup")
     public ResponseEntity<?> signupUser(@RequestBody SignupRequest signupRequest){
