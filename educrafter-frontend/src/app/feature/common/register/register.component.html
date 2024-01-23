@@ -1,0 +1,103 @@
+<mat-card>
+    <div class="container">
+        <h2 class="pt-3">{{title}} {{role}}</h2>
+        <mat-card class="form-card mat-elevation-z4">
+            <form class="create-form" [formGroup]="registerForm" (ngSubmit)="submitForm()">
+
+                <div class="form-group row">
+                    <div class="col">
+                        <mat-form-field class="create-full-width" appearance="fill">
+                            <mat-label>Name</mat-label>
+                            <input matInput formControlName="name" />
+                        </mat-form-field>
+                    </div>
+                    <div class="col">
+                        <mat-form-field class="create-full-width" appearance="fill">
+                            <mat-label>Email</mat-label>
+                            <input matInput formControlName="email" />
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col">
+                        <mat-form-field class="create-full-width" appearance="fill">
+                            <mat-label>Phone</mat-label>
+                            <input matInput formControlName="phone" />
+                        </mat-form-field>
+                    </div>
+                    <div class="col">
+                        <mat-form-field class="create-full-width" appearance="fill">
+                            <mat-label>Date of Birth</mat-label>
+                            <input matInput [matDatepicker]="dobPicker" formControlName="dateOfBirth">
+                            <mat-datepicker-toggle matIconSuffix [for]="dobPicker"></mat-datepicker-toggle>
+                            <mat-datepicker #dobPicker></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col">
+                        <mat-form-field class="create-full-width" appearance="fill">
+                            <mat-label>Sex</mat-label>
+                            <mat-select formControlName="sex">
+                                <mat-option *ngFor="let option of sexOptions" [value]="option.value">
+                                    {{ option.viewValue }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <!-- For Parent only -->
+                <div class="form-group" *ngIf="role==='parent'">
+                    <mat-form-field class="create-full-width" appearance="fill">
+                        <mat-label>Student</mat-label>
+                        <mat-select formControlName="studentId">
+                            <mat-option *ngFor="let option of students" [value]="option.id">
+                                {{ option.name }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <!-- For Teacher and admin only -->
+                <div class="form-group" *ngIf="role==='teacher' || role==='admin'">
+                    <mat-form-field class="create-full-width" appearance="fill">
+                        <mat-label>Designation</mat-label>
+                        <mat-select formControlName="designation">
+                            <mat-option *ngFor="let option of designationOptions" [value]="option.value">
+                                {{ option.viewValue }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <div class="form-group row">
+                    <mat-form-field class="create-full-width" appearance="fill">
+                        <mat-label>Remarks</mat-label>
+                        <input matInput formControlName="remarks" />
+                    </mat-form-field>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col">
+                        <mat-form-field class="create-full-width" appearance="fill">
+                            <mat-label>Password</mat-label>
+                            <input matInput formControlName="password" />
+                        </mat-form-field>
+                    </div>
+                    <div class="col">
+                        <mat-form-field class="create-full-width" appearance="fill">
+                            <mat-label>Confirm Password</mat-label>
+                            <input matInput formControlName="confirmPassword" />
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <button mat-raised-button color="primary" type="submit"
+                    [disabled]="registerForm.invalid">Register</button>
+            </form>
+        </mat-card>
+    </div>
+</mat-card>

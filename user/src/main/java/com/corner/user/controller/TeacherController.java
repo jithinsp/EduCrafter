@@ -30,6 +30,12 @@ public class TeacherController {
         return ResponseEntity.ok(users);
     }
 
+    @GetMapping("/allParents")
+    public ResponseEntity<List<UserEntity>> getAllParents(){
+        List<UserEntity> users = userCredentialService.getAllByRole(Role.PARENT);
+        return ResponseEntity.ok(users);
+    }
+
     @GetMapping("/allStudents")
     public ResponseEntity<List<StudentEntity>> getAllStudents(){
         List<StudentEntity> users = studentService.getAllByRole(Role.STUDENT);

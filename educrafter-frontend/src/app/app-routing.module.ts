@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { RegisterComponent } from './components/register/register.component';
-import { LoginComponent } from './components/login/login.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { LogoutComponent } from './components/logout/logout.component';
+import { RegisterComponent } from './feature/common/register/register.component';
+import { LoginComponent } from './feature/common/login/login.component';
+import { DashboardComponent } from './feature/common/dashboard/dashboard.component';
+import { LogoutComponent } from './feature/common/logout/logout.component';
 import { AppComponent } from './app.component';
-import { UserListComponent } from './components/user-list/user-list.component';
-import { UserProfileComponent } from './components/user-profile/user-profile.component';
-import { AuthGuard } from './AuthGuard';
+import { UserListComponent } from './feature/common/user-list/user-list.component';
+import { UserProfileComponent } from './feature/common/user-profile/user-profile.component';
+import { AuthGuard } from './core/guards/AuthGuard';
 
 const routes: Routes = [
   { path: "", redirectTo: "dashboard", pathMatch: 'full'},

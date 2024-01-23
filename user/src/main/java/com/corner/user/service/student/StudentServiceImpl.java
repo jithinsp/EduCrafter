@@ -39,7 +39,7 @@ public class StudentServiceImpl implements StudentService{
         StudentEntity createdUser = studentRepository.save(newStudent);
         newStudent.setId(createdUser.getId());
         LoginDetails loginDetails = new LoginDetails(newStudent.getId(),newStudent.getEmail(),
-                newStudent.getName(),newStudent.getPassword(),newStudent.getRole());
+                newStudent.getName(),registerStudentRequest.getPassword(),newStudent.getRole());
         loginClient.signupUser(loginDetails);
         System.out.println("successfully registered");
         return newStudent;

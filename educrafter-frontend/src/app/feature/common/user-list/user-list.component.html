@@ -1,0 +1,65 @@
+<!-- *ngIf="user.role != 'ADMIN'" -->
+<mat-card>
+  <mat-card-header>
+    <mat-form-field>
+      <input matInput (keyup)="Filterchange($event)" placeholder="Search" />
+    </mat-form-field>
+    <ng-container>
+      <div class="container">
+        <div class="flex justify-around py-3">
+          <button (click)="openCreate()" mat-raised-button color="primary"><mat-icon>create</mat-icon> Register</button>
+        </div>
+      </div>
+
+    </ng-container>
+  </mat-card-header>
+  <mat-card-content>
+    <table matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+      <!-- No Column -->
+      <ng-container matColumnDef="index">
+        <th mat-sort-header mat-header-cell *matHeaderCellDef>No</th>
+        <td mat-cell *matCellDef="let user; let i = index">{{ i + 1 }}</td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-sort-header mat-header-cell *matHeaderCellDef>Name</th>
+        <td mat-cell *matCellDef="let user">{{ user.name }}</td>
+      </ng-container>
+
+      <!-- Email Column -->
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef>Email</th>
+        <td mat-cell *matCellDef="let user">{{ user.email }}</td>
+      </ng-container>
+
+      <!-- Role Column -->
+      <ng-container matColumnDef="role">
+        <th mat-header-cell *matHeaderCellDef>Role</th>
+        <td mat-cell *matCellDef="let user">{{ user.role }}</td>
+      </ng-container>
+
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let user">
+          <button mat-icon-button color="warn" (click)="onDeleteUser(user.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <!-- Define column order -->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    </table>
+  </mat-card-content>
+  <br>
+  <mat-card-footer>
+
+    <mat-paginator [pageSizeOptions]="[5,10,20]" showFirstLastButtons></mat-paginator>
+
+  </mat-card-footer>
+</mat-card>

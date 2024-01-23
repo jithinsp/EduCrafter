@@ -25,3 +25,7 @@
 /user/*
 !/user/.gitignore
 !/user/**/
+
+/academics/*
+!/academics/.gitignore
+!/academics/**/

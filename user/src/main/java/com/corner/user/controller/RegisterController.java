@@ -38,7 +38,7 @@ public class RegisterController {
         if (parent != null){
             return ResponseEntity.status(HttpStatus.CREATED).body(parent);
         } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to create teacher");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to create parent");
         }
     }
     @PostMapping("/teacher")

@@ -46,7 +46,7 @@ public class UserCredentialServiceImpl implements UserCredentialService {
         UserEntity createdUser = userCredentialRepository.save(users);
         users.setId(createdUser.getId());
         LoginDetails loginDetails = new LoginDetails(users.getId(),users.getEmail(),
-                users.getName(),users.getPassword(),Role.ADMIN);
+                users.getName(),registerStudentRequest.getPassword(),Role.ADMIN);
         loginClient.signupUser(loginDetails);
         return users;
     }
@@ -65,7 +65,7 @@ public class UserCredentialServiceImpl implements UserCredentialService {
         UserEntity createdUser = userCredentialRepository.save(newTeacher);
         newTeacher.setId(createdUser.getId());
         LoginDetails loginDetails = new LoginDetails(newTeacher.getId(),newTeacher.getEmail(),
-                newTeacher.getName(),newTeacher.getPassword(),Role.TEACHER);
+                newTeacher.getName(),registerTeacherRequest.getPassword(),Role.TEACHER);
         loginClient.signupUser(loginDetails);
         return newTeacher;
     }
@@ -91,7 +91,7 @@ public class UserCredentialServiceImpl implements UserCredentialService {
         student.setParent(newParent);
         studentRepository.save(student);
         LoginDetails loginDetails = new LoginDetails(newParent.getId(),newParent.getEmail(),
-                newParent.getName(),newParent.getPassword(),Role.PARENT);
+                newParent.getName(),registerParentRequest.getPassword(),Role.PARENT);
         loginClient.signupUser(loginDetails);
         return newParent;
     }

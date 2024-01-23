@@ -26,4 +26,6 @@ public class BaseEntity {
     @UpdateTimestamp
     private Timestamp lastModifiedDate;
 
+    private boolean isEnabled;
+
 }

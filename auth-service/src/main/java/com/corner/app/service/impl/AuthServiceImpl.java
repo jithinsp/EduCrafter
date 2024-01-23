@@ -48,8 +48,8 @@ public class AuthServiceImpl implements AuthService {
         System.out.println("here");
         UserCredential users = new UserCredential();
         BeanUtils.copyProperties(signupRequest, users); //instead of getting and setting we can copy
-//        String hashedPassword = passwordEncoder.encode(signupRequest.getPassword());
-//        users.setPassword(hashedPassword);
+        String hashedPassword = passwordEncoder.encode(signupRequest.getPassword());
+        users.setPassword(hashedPassword);
 //        users.setRole(Role.STUDENT);
         UserCredential createdUser = userRepository.save(users);
 //        users.setId(createdUser.getId());
