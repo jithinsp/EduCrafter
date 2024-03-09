@@ -6,6 +6,7 @@ import com.corner.user.entity.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface StudentRepository extends JpaRepository<StudentEntity, UUID> {
@@ -13,5 +14,5 @@ public interface StudentRepository extends JpaRepository<StudentEntity, UUID> {
 
     List<StudentEntity> findByRole(Role role);
 
-    StudentEntity findByEmail(String email);
+    Optional<StudentEntity> findByEmail(String email);
 }

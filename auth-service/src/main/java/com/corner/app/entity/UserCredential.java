@@ -15,7 +15,11 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+//@AttributeOverride(name = "id", column = @Column(name = "id"))
 public class UserCredential extends BaseEntity{
+    @Id
+//    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
     private String name;
     private String email;
     private String password;

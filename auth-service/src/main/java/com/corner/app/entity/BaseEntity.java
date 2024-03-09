@@ -15,9 +15,9 @@ import java.util.UUID;
 @MappedSuperclass
 public class BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.UUID)
+//    private UUID id;
 
     @CreationTimestamp
     @Column(updatable = false)

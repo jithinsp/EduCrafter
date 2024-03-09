@@ -1,0 +1,293 @@
+<nav class="navbar navbar-expand navbar-dark bg-dark">
+  <!-- Left-aligned items -->
+  <div class="container-fluid">
+    <div class="row">
+      <!-- *ngIf="isAdmin" -->
+      <div class="col-sm" *ngIf="isLogged">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <button (click)="drawer.toggle()" color="accent" mat-icon-button>
+              <mat-icon>menu</mat-icon>
+            </button>
+          </li>
+        </ul>
+      </div>
+      <div class="col-sm">
+        <ul class="navbar-nav py-3 px-1">
+          <li class="nav-item">
+            <a class="navbar-brand" href="">EduCrafter</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="ml-auto">
+    <ul class="navbar-nav">
+      <ng-container *ngIf="!isLogged">
+        <!-- <li class="nav-item">
+          <a class="nav-link" routerLink="/register">Register</a>
+        </li> -->
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/login">Login</a>
+        </li>
+      </ng-container>
+
+      <ng-container *ngIf="isLogged">
+        <!-- <a class="nav-link" routerLink="/user-list">Users</a> -->
+        <li *ngIf="isTeacher || isAdmin" class="nav-item">
+          <a class="nav-link" (click)="onButtonClick('student')">Student</a>
+        </li>
+        <li *ngIf="isAdmin" class="nav-item">
+          <a class="nav-link" (click)="onButtonClick('teacher')">Teacher</a>
+        </li>
+        <li *ngIf="isTeacher || isAdmin" class="nav-item">
+          <a class="nav-link" (click)="onButtonClick('parent')">Parent</a>
+        </li>
+        <li *ngIf="isAdmin" class="nav-item">
+          <a class="nav-link" (click)="onButtonClick('admin')">Admin</a>
+        </li>
+      </ng-container>
+
+      <ng-container *ngIf="isLogged">
+        <button color="accent" mat-button [matMenuTriggerFor]="menu">
+          <mat-icon>account_circle</mat-icon>
+          <mat-icon>keyboard_arrow_down</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button class="nav-link" mat-menu-item routerLink="/user-profile">Profile</button>
+          <button class="nav-link" mat-menu-item routerLink="/logout">Logout</button>
+        </mat-menu>
+      </ng-container>
+    </ul>
+  </div>
+</nav>
+
+<mat-drawer-container autosize>
+  <mat-drawer #drawer opened="true" mode="side" position="start">
+    <!-- ADMIN SECTION-->
+    <mat-nav-list *ngIf="role.includes('ADMIN') && isLogged">
+
+      <mat-list-item>
+        <button routerLink="dashboard" mat-button class="light-button"
+          routerLinkActive="active"><mat-icon>dashboard</mat-icon> Dashboard</button>
+      </mat-list-item>
+
+      <!-- <mat-list-item>
+        <button [routerLink]="['user-list']" [queryParams]="{ param: 'teacher' }" mat-button>
+          <mat-icon>group</mat-icon> Employees
+        </button>
+      </mat-list-item> -->
+
+
+      <!-- <mat-list-item>
+        <button  [routerLink]="['user-list']" [queryParams]="{ param: 'student' }" mat-button><mat-icon>people</mat-icon> Students List</button>
+      </mat-list-item> -->
+
+      <mat-list-item>
+        <button routerLink="all-classes" mat-button routerLinkActive="active"><mat-icon>people_outline</mat-icon>Class
+          List</button>
+      </mat-list-item>
+
+      <mat-list-item>
+        <button routerLink="all-subjects" routerLinkActive="active"
+          mat-button><mat-icon>people_outline</mat-icon>Subject List</button>
+      </mat-list-item>
+
+      <mat-list-item>
+        <button routerLink="accounts" routerLinkActive="active" mat-button><mat-icon>account_balance</mat-icon>
+          Accounts</button>
+      </mat-list-item>
+
+      <mat-list-item>
+        <button routerLink="timetable-view" routerLinkActive="active" mat-button><mat-icon>schedule</mat-icon> Time
+          Table</button>
+      </mat-list-item>
+
+      <!-- <mat-list-item>
+        <button routerLink="timetable-view" routerLinkActive="active" mat-button><mat-icon>school</mat-icon>
+          Results</button>
+      </mat-list-item> -->
+
+      <mat-list-item>
+        <button routerLink="chat" routerLinkActive="active" mat-button><mat-icon>forum</mat-icon> Interaction</button>
+      </mat-list-item>
+
+      <mat-list-item>
+        <button routerLink="notice" routerLinkActive="active" mat-button><mat-icon>notifications</mat-icon>
+          Notifications</button>
+      </mat-list-item>
+
+    </mat-nav-list>
+    <!-- ADMIN SECTION END-->
+
+    <!-- TEACHER SECTION -->
+    <mat-nav-list *ngIf="role.includes('TEACHER') && isLogged">
+
+      <mat-list-item>
+        <button routerLink="dashboard" routerLinkActive="active" mat-button
+          class="light-button"><mat-icon>dashboard</mat-icon> Dashboard</button>
+      </mat-list-item>
+
+      <!-- <mat-list-item>
+            <button  [routerLink]="['user-list']" [queryParams]="{ param: 'student' }" mat-button><mat-icon>people</mat-icon> Students</button>
+        </mat-list-item> -->
+
+      <mat-list-item>
+        <button routerLink="teacher-attendance" routerLinkActive="active" mat-button><mat-icon>person</mat-icon>
+          Attendance</button>
+      </mat-list-item>
+
+      <mat-list-item>
+        <button routerLink="exam-view" routerLinkActive="active" mat-button><mat-icon>event_note</mat-icon>
+          Exam</button>
+      </mat-list-item>
+
+      <mat-list-item>
+        <button routerLink="results-view" routerLinkActive="active" mat-button><mat-icon>event_note</mat-icon>
+          Results</button>
+      </mat-list-item>
+
+      <mat-list-item>
+        <button routerLink="slot-view" routerLinkActive="active" mat-button><mat-icon>event_note</mat-icon>
+          Slots</button>
+      </mat-list-item>
+
+      <!-- <mat-list-item>
+        <button routerLink="account-type" routerLinkActive="active" mat-button><mat-icon>poll</mat-icon> Reports
+        </button>
+      </mat-list-item> -->
+
+      <!-- <mat-list-item>
+        <button routerLink="account-type" routerLinkActive="active" mat-button><mat-icon>schedule</mat-icon> Time
+          table</button>
+      </mat-list-item> -->
+
+      <!-- <mat-list-item>
+        <button routerLink="account-type" routerLinkActive="active"
+          mat-button><mat-icon>account_balance_wallet</mat-icon> Assignment</button>
+      </mat-list-item> -->
+
+      <mat-list-item>
+        <button routerLink="chat" routerLinkActive="active" mat-button><mat-icon>forum</mat-icon> Interaction</button>
+      </mat-list-item>
+
+      <mat-list-item>
+        <button routerLink="resources" routerLinkActive="active" mat-button><mat-icon>school</mat-icon> Academics
+        </button>
+      </mat-list-item>
+
+      <mat-list-item>
+        <button routerLink="notice" routerLinkActive="active" mat-button><mat-icon>notifications</mat-icon>
+          Notifications</button>
+      </mat-list-item>
+
+    </mat-nav-list>
+    <!-- TEACHER SECTION END-->
+
+    <!-- PARENT SECTION -->
+    <mat-nav-list *ngIf="role.includes('PARENT') && isLogged">
+
+      <mat-list-item>
+        <button routerLink="dashboard" routerLinkActive="active" mat-button
+          class="light-button"><mat-icon>dashboard</mat-icon> Dashboard</button>
+      </mat-list-item>
+
+      <mat-list-item>
+        <button routerLink="timetable-view" routerLinkActive="active" mat-button><mat-icon>schedule</mat-icon> Time
+          table</button>
+      </mat-list-item>
+
+      <mat-list-item>
+        <button routerLink="attendance-view" routerLinkActive="active" mat-button><mat-icon>person</mat-icon>
+          Attendance</button>
+      </mat-list-item>
+<!-- 
+      <mat-list-item>
+        <button routerLink="" routerLinkActive="active" mat-button><mat-icon>pages</mat-icon> Works</button>
+      </mat-list-item> -->
+
+      <!-- <mat-list-item>
+        <button routerLink="" routerLinkActive="active" mat-button><mat-icon>school</mat-icon> Results</button>
+      </mat-list-item> -->
+
+      <mat-list-item>
+        <button routerLink="chat" routerLinkActive="active" mat-button><mat-icon>forum</mat-icon> Interaction</button>
+      </mat-list-item>
+
+      <mat-list-item>
+        <button routerLink="payment-history" routerLinkActive="active" mat-button><mat-icon>account_balance</mat-icon>
+          Payment History</button>
+      </mat-list-item>
+
+      <mat-list-item>
+        <button routerLink="notice" routerLinkActive="active" mat-button><mat-icon>notifications</mat-icon>
+          Notifications</button>
+      </mat-list-item>
+
+    </mat-nav-list>
+    <!-- PARENT SECTION END-->
+
+    <!-- STUDENT SECTION -->
+    <mat-nav-list *ngIf="role.includes('STUDENT') && isLogged">
+
+      <mat-list-item>
+        <button routerLink="dashboard" routerLinkActive="active" mat-button><mat-icon>dashboard</mat-icon> Dashboard</button>
+      </mat-list-item>
+      <!-- <mat-list-item>
+        <button routerLink="" routerLinkActive="active" mat-button class="light-button"><mat-icon>event</mat-icon>
+          Assignment</button>
+      </mat-list-item> -->
+      <!-- <mat-list-item>
+        <button routerLink="" routerLinkActive="active" mat-button><mat-icon>event_note</mat-icon> Exam</button>
+      </mat-list-item> -->
+      <!-- <mat-list-item>
+        <button routerLink="" routerLinkActive="active" mat-button><mat-icon>school</mat-icon> Results</button>
+      </mat-list-item> -->
+      <mat-list-item>
+        <button routerLink="timetable-view" routerLinkActive="active" mat-button><mat-icon>schedule</mat-icon> Time
+          table</button>
+      </mat-list-item>
+
+      <mat-list-item>
+        <button routerLink="attendance-view" routerLinkActive="active" mat-button><mat-icon>person</mat-icon>
+          Attendance</button>
+      </mat-list-item>
+      
+      <mat-list-item>
+        <button routerLink="resources" routerLinkActive="active" mat-button><mat-icon>school</mat-icon>
+          Academics</button>
+      </mat-list-item>
+
+      <mat-list-item>
+        <button routerLink="payment-history" routerLinkActive="active" mat-button><mat-icon>account_balance</mat-icon>
+          Payment History</button>
+      </mat-list-item>
+
+      <mat-list-item>
+        <button routerLink="notice" routerLinkActive="active" mat-button><mat-icon>notifications</mat-icon>
+          Notifications</button>
+      </mat-list-item>
+
+      <mat-list-item>
+        <button routerLink="chat" routerLinkActive="active" mat-button><mat-icon>forum</mat-icon> Interaction</button>
+      </mat-list-item>
+
+    </mat-nav-list>
+    <!-- STUDENT SECTION END-->
+
+  </mat-drawer>
+  <mat-drawer-content>
+    <div style="text-align: center;min-height: 600px;">
+      <!-- <mat-drawer-content class="d-flex flex-column">
+            <div style="flex: 1;"> -->
+      <router-outlet></router-outlet>
+      <!-- Footer -->
+      <!-- <footer class="footer mt-auto py-3 bg-light text-dark">
+            <div class="container text-center">
+              Powered By corner 2024
+            </div>
+          </footer> -->
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>

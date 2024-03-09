@@ -65,12 +65,12 @@ public class LoginController {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
         } catch (BadCredentialsException e) {
-            response.sendError(HttpServletResponse.SC_NOT_FOUND, "Login failed due to bad credentials");
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Login failed due to bad credentials");
             System.out.println("Login failed due to bad credentials");
             return null;
         } catch (DisabledException disabledException) {
             System.out.println("Login failed due to customer is not activated");
-            response.sendError(HttpServletResponse.SC_NOT_FOUND, "Customer is not activated");
+            response.sendError(HttpServletResponse.SC_FORBIDDEN, "Customer is not activated");
             return null;
         }
         LOGGER.info("Login");

@@ -7,7 +7,9 @@ import com.corner.user.entity.StudentEntity;
 import com.corner.user.entity.UserEntity;
 import com.corner.user.service.student.StudentService;
 import com.corner.user.service.user.UserCredentialService;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -24,39 +26,58 @@ public class RegisterController {
     StudentService studentService;
     @PostMapping("/student")
     public ResponseEntity<?> registerStudent(@RequestBody RegisterStudentRequest registerStudentRequest){
-        System.out.println("registering student");
-        StudentEntity student = studentService.addStudent(registerStudentRequest);
-        if (student != null){
+        try {
+            StudentEntity student = studentService.addStudent(registerStudentRequest);
             return ResponseEntity.status(HttpStatus.CREATED).body(student);
-        } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to create teacher");
+        } catch (DataIntegrityViolationException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to create" +
+                    " student: "+ e.getMessage());
         }
     }
     @PostMapping("/parent")
     public ResponseEntity<?> registerParent(@RequestBody RegisterParentRequest registerParentRequest){
-        UserEntity parent = userCredentialService.addParent(registerParentRequest);
-        if (parent != null){
+        try {
+            UserEntity parent = userCredentialService.addParent(registerParentRequest);
             return ResponseEntity.status(HttpStatus.CREATED).body(parent);
-        } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to create parent");
+        } catch (DataIntegrityViolationException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to create" +
+                    " student: "+ e.getMessage());
         }
     }
     @PostMapping("/teacher")
     public ResponseEntity<?> registerTeacher(@RequestBody RegisterTeacherRequest registerTeacherRequest){
-        UserEntity teacher = userCredentialService.addTeacher(registerTeacherRequest);
-        if (teacher != null){
+        try {
+            UserEntity teacher = userCredentialService.addTeacher(registerTeacherRequest);
             return ResponseEntity.status(HttpStatus.CREATED).body(teacher);
-        } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to create teacher");
+        } catch (DataIntegrityViolationException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to create" +
+                    " student: "+ e.getMessage());
         }
+//        UserEntity teacher = userCredentialService.addTeacher(registerTeacherRequest);
+//        if (teacher != null){
+//            return ResponseEntity.status(HttpStatus.CREATED).body(teacher);
+//        } else {
+//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to create teacher");
+//        }
     }
     @PostMapping("/admin")
     public ResponseEntity<?> registerAdmin(@RequestBody RegisterStudentRequest registerStudentRequest){
-        UserEntity admin = userCredentialService.addAdmin(registerStudentRequest);
-        if (admin != null){
+        try {
+            UserEntity admin = userCredentialService.addAdmin(registerStudentRequest);
             return ResponseEntity.status(HttpStatus.CREATED).body(admin);
-        } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to create admin");
+        } catch (DataIntegrityViolationException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to create" +
+                    " student: "+ e.getMessage());
         }
     }
 }

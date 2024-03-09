@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { JwtService } from '../auth/jwt.service';
 import { HttpClient } from '@angular/common/http';
-
-const BASE_URL = ["http://localhost:8060/"]
+import { BASE_URL } from '../../constants/baseurls.constant';
 
 @Injectable({
   providedIn: 'root'

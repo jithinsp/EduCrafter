@@ -86,6 +86,7 @@ export interface IStudentRegister {
     role: string
     designation: string
     remarks: string
+    isDeleted: string
   }
   
   export interface IAdminResponse {

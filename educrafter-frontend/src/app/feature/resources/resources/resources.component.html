@@ -1,0 +1,52 @@
+<!-- <input type="file" (change)="onFileSelected($event)" />
+
+
+<ul>
+    <li *ngFor="let file of files">{{ file }}</li>
+  </ul> -->
+
+<!-- <div>
+    <h2>File Management</h2>
+    <input type="file" (change)="onFileSelected($event)" />
+    <button mat-raised-button color="primary" (click)="uploadFile()">Upload</button>
+
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div> -->
+
+<div class="card-body">
+  <div class="row">
+    <div class="col-md-12 m-10 flex" >
+      <video #videoPlayer width="800" height="600" controls></video>
+      <!-- <button mat-icon-button color="primary" (click)="close()"><mat-icon>close</mat-icon></button> -->
+    </div>
+    <div class="col-md-12" >
+      <app-mytable 
+      [HeadArray]="headArray" 
+      [GridArray]="dataList" 
+      [title]="title"
+      (onEdit)="edit($event)" 
+      (onDelete)="delete($event)"
+      (onCreate)="create()" 
+      (onView)="view($event)" 
+      (onToggle)="toggle($event)" 
+      [showToggleButton]="showToggleButton"
+      [showCreateButton]="showCreateButton"
+      [showEditButton]="showEditButton" 
+      [showDeleteButton]="showDeleteButton"
+      [showViewButton]="showViewButton"></app-mytable>
+    </div>
+    
+  </div>
+</div>
+
+<!-- *ngIf="showVideo" -->
+
+<!-- <video width="640" height="360" controls>
+      <source src="selectedFile" type="video/mp4">
+      Your browser does not support the video tag.
+  </video> -->
+<!-- <ul>
+      <li *ngFor="let file of files">{{ file }}</li>
+    </ul> -->
+<!-- </div> -->

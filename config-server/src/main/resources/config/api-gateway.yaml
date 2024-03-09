@@ -23,12 +23,15 @@ spring:
       globalcors:
         corsConfigurations:
           '[/**]':
-            allowedOrigins: "http://localhost:4200"
+            allowedOrigins:
+              - "http://localhost:4200"
             allowedHeaders: "*"
             allowedMethods:
               - GET
               - POST
               - DELETE
+              - PATCH
+              - PUT
       routes:
         - id: auth-service
           uri: lb://auth-service
@@ -38,5 +41,23 @@ spring:
           uri: lb://user-service
           predicates:
             - Path=/user/**
+          filters:
+            - AuthenticationFilter
+        - id: academics-service
+          uri: lb://academics-service
+          predicates:
+            - Path=/academics/**
+          filters:
+            - AuthenticationFilter
+        - id: finance-service
+          uri: lb://finance-service
+          predicates:
+            - Path=/finance/**
+          filters:
+            - AuthenticationFilter
+        - id: notification-service
+          uri: lb://notification-service
+          predicates:
+            - Path=/notification/**
           filters:
             - AuthenticationFilter

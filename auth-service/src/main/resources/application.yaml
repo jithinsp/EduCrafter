@@ -7,11 +7,16 @@ spring:
     # it made optional because, if it fails to load still the app should work
 
 
+#  datasource:
+#    url: jdbc:mysql://localhost:3306/eduser
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    username: root
+#    password: Jithin123
   datasource:
-    url: jdbc:mysql://localhost:3306/eduser
+    url: jdbc:mysql://34.93.111.216:3306/edauth
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
-    password: Jithin123
+    password: ~T$+8Hf"1<IU9EGA
   jpa:
     properties:
       hibernate:

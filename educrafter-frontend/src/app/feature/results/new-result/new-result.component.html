@@ -1,0 +1,74 @@
+<mat-card>
+    <div class="container">
+        <h2 class="pt-3">{{title}} Result</h2>
+        <mat-card class="form-card mat-elevation-z4">
+            <form class="create-form" [formGroup]="registerForm" (ngSubmit)="submitForm()">
+
+                <div class="form-group row">
+                    <div class="col">
+                        <mat-form-field class="create-full-width" appearance="fill">
+                            <mat-label>Subject</mat-label>
+                            <mat-select formControlName="subject">
+                                <mat-option *ngFor="let option of subjects" [value]="option.id">
+                                    {{ option.name }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col">
+                        <mat-form-field class="create-full-width" appearance="fill">
+                            <mat-label>Classes</mat-label>
+                            <mat-select formControlName="classes">
+                                <mat-option *ngFor="let option of classes" [value]="option.id">
+                                    {{ option.name }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col">
+                        <mat-form-field class="create-full-width" appearance="fill">
+                            <mat-label>Exam</mat-label>
+                            <mat-select formControlName="exam">
+                                <mat-option *ngFor="let option of exams" [value]="option.id">
+                                    {{ option.name }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col">
+                        <mat-form-field class="create-full-width" appearance="fill">
+                            <mat-label>Student</mat-label>
+                            <mat-select formControlName="studentId">
+                                <mat-option *ngFor="let option of students" [value]="option.id">
+                                    {{ option.name }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col">
+                        <mat-form-field class="create-full-width" appearance="fill">
+                            <mat-label>Marks</mat-label>
+                            <input matInput formControlName="mark" />
+                        </mat-form-field>
+                    </div>
+                    <div class="col">
+                        <mat-form-field class="create-full-width" appearance="fill">
+                            <mat-label>Remarks</mat-label>
+                            <input matInput formControlName="remarks" />
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <button mat-raised-button color="primary" type="submit"
+                    [disabled]="registerForm.invalid">Submit</button>
+            </form>
+        </mat-card>
+    </div>
+</mat-card>

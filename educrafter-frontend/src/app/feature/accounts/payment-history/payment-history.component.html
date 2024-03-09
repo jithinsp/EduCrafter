@@ -1,0 +1,18 @@
+
+<div class="card-body">
+    <div class="row">
+        <div class="col-md-12">
+             <app-mytable 
+             [HeadArray]="headArray" 
+             [GridArray]="dataList"
+             [title]="title"
+             (onEdit)="edit($event)"  
+             (onDelete)="delete($event)" 
+             (onCreate)="create()"
+             (onToggle)="toggle($event)" 
+             [showToggleButton]="showToggleButton"
+             [showCreateButton]="showCreateButton"
+             ></app-mytable>
+        </div>
+    </div>
+</div>

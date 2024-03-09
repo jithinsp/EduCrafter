@@ -8,6 +8,7 @@ import com.corner.user.entity.UserEntity;
 import jakarta.servlet.http.HttpServletRequest;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface UserCredentialService {
     UserEntity addAdmin(RegisterStudentRequest registerStudentRequest);
@@ -19,4 +20,6 @@ public interface UserCredentialService {
     public String extractUsername(HttpServletRequest request);
 
     UserEntity getUserByEmail(String username);
+
+    UserEntity getById(UUID userId);
 }

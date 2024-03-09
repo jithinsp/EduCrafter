@@ -1,0 +1,11 @@
+
+spring:
+  application:
+    name: notification-service
+  config:
+    import: "optional:configserver:http://localhost:8088"
+  data:
+    mongodb:
+      uri: mongodb+srv://jithinsp001:KX6oSo80nJYGjPK5@mongocluster.0itei1i.mongodb.net/notificationDb?retryWrites=true&w=majority&appName=MongoCluster
+  rabbitmq:
+    addresses: localhost:5672

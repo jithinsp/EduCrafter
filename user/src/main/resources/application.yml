@@ -4,14 +4,27 @@ spring:
   config:
     import: "optional:configserver:http://localhost:8088"
 
+#  datasource:
+#    url: jdbc:mysql://localhost:3306/eduCrafterUser
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    username: root
+#    password: Jithin123
   datasource:
-    url: jdbc:mysql://localhost:3306/eduCrafterUser
+    url: jdbc:mysql://34.93.111.216:3306/eduser
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
-    password: Jithin123
+    password: ~T$+8Hf"1<IU9EGA
   jpa:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
     hibernate:
       ddl-auto: update
+
+# 0x1FDD586C571B4A0F91A70EC213413870 in academics
+# 646c24a1-4bb3-488e-a355-50d9a3450916
+
+#  0xD6E8FB068627495FA9B9D0CED4A4C94B in auth
+#  646c24a1-4bb3-488e-a355-50d9a3450916
+
+#  0x646C24A14BB3488EA35550D9A3450916 in user

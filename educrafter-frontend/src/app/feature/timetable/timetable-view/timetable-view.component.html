@@ -1,0 +1,34 @@
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8 w-600 mx-auto">
+
+    <!-- Column definitions -->
+    <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column">
+      <th mat-header-cell *matHeaderCellDef class="text-center p-8">{{ column }}</th>
+      <td mat-cell *matCellDef="let element" class="text-center p-8">{{ element[column] }}</td>
+    </ng-container>
+  
+    <!-- Row definition -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+
+<div class="card-body">
+  <div class="row">
+      <div class="col-md-12">
+           <app-mytable 
+           [HeadArray]="headArray" 
+           [GridArray]="list"
+           [title]="title"
+           (onEdit)="edit($event)"  
+           (onDelete)="deletes($event)" 
+           (onCreate)="create()"
+           (onToggle)="toggle($event)" 
+           [showToggleButton]="showToggleButton"
+           [showCreateButton]="showCreateButton"
+           [showEditButton]="showEditButton"
+           [showDeleteButton]="showDeleteButton"
+           [showViewButton]="showViewButton"
+           ></app-mytable>
+      </div>
+  </div>
+</div>

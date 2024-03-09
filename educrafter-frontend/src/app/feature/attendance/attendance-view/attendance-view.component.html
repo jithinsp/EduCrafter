@@ -1,0 +1,99 @@
+
+<div class="card-body">
+  <div class="row">
+      <div class="col-md-12">
+           <app-mytable 
+           [HeadArray]="headArray" 
+           [GridArray]="dataList"
+           (onEdit)="edit($event)"  
+           (onDelete)="delete($event)" 
+           (onCreate)="create()"
+           [showCreateButton]="showCreateButton"
+           ></app-mytable>
+      </div>
+  </div>
+</div>
+    <!-- <mwl-calendar
+      [view]="view"
+      [viewDate]="viewDate"
+      [events]="events"
+    ></mwl-calendar> -->
+
+    <!-- <mwl-calendar-month-view
+    class="cal-month-view"
+    [viewDate]="viewDate"
+    [events]="events"
+    [refresh]="refresh"
+  [activeDayIsOpen]="activeDayIsOpen"
+  (dayClicked)="dayClicked($event.day)"
+  (eventClicked)="handleEvent('Clicked', $event.event)"
+  (eventTimesChanged)="eventTimesChanged($event)" 
+  ></mwl-calendar-month-view> -->
+
+  <!-- <mat-card>
+    <mat-card-header>
+        <mat-form-field>
+            <input matInput (keyup)="Filterchange($event)" placeholder="Search" />
+        </mat-form-field>
+        <ng-container>
+
+        </ng-container>
+    </mat-card-header>
+    <mat-card-content>
+        <table matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+            <ng-container matColumnDef="index">
+              <th mat-sort-header mat-header-cell *matHeaderCellDef>No</th>
+              <td mat-cell *matCellDef="let user; let i = index">{{ i + 1 }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="date">
+              <th mat-sort-header mat-header-cell *matHeaderCellDef>Date</th>
+              <td mat-cell *matCellDef="let user; let i = index">{{ user.date }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="attended">
+              <th mat-sort-header mat-header-cell *matHeaderCellDef>attendanceStatus</th>
+              <td mat-cell *matCellDef="let user; let i = index">{{ user.attended }}</td>
+            </ng-container>
+          
+
+            <ng-container matColumnDef="name">
+              <th mat-sort-header mat-header-cell *matHeaderCellDef>Name</th>
+              <td mat-cell *matCellDef="let user">{{ user.name }}</td>
+            </ng-container>
+          
+
+            <ng-container matColumnDef="date">
+                <th mat-header-cell *matHeaderCellDef>Dates</th>
+                <td mat-cell *matCellDef="let user">
+                  <div *ngFor="let attendance of user.attendances">
+                    {{ attendance.date | date }}
+                  </div>
+                </td>
+              </ng-container>
+
+            <ng-container matColumnDef="attendanceStatus">
+                <th mat-header-cell *matHeaderCellDef>Attendance Status</th>
+                <td mat-cell *matCellDef="let user" >
+                  <div *ngFor="let attendance of user.attendances">
+                    {{ attendance.attended ? 'Present' : 'Absent' }} 
+                  </div>
+                </td>
+              </ng-container>
+              
+          
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          
+          </table>
+          
+    </mat-card-content>
+    <br>
+    <mat-card-footer>
+
+        <mat-paginator [pageSizeOptions]="[5,10,20]" showFirstLastButtons></mat-paginator>
+
+    </mat-card-footer>
+</mat-card> -->

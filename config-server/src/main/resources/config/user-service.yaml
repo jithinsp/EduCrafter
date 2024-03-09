@@ -1,5 +1,7 @@
 server:
   port: 8084
+  rabbitmq:
+    addresses : localhost:5672
 
 eureka:
   client:
@@ -11,3 +13,17 @@ management:
     sampling:
       probability: 1.0
       # we are adding this to publish 100% logs to zipkin
+
+#Email integration config
+spring:
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: jithinsp4@gmail.com
+    password: oqcwsgdphfzuycyd
+    properties:
+      mail:
+        smtp:
+          auth: true
+        starttls:
+          enable: true

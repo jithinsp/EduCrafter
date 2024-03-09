@@ -1,0 +1,32 @@
+
+.light-button {
+    background-color: #ffffff; 
+    color: #ffffff;
+  }
+  /* Ensure the parent container has full height */
+/* .mat-drawer-content {
+  height: 100%;
+}
+.footer {
+  width: 100%;
+  position: sticky;
+  bottom: 0;
+} */
+.mat-drawer-content {
+  display: flex;
+  flex-direction: column;
+  min-height: 0vh;
+  position: relative;
+}
+
+/* Footer style */
+.footer {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+}
+
+.active {
+  background-color: #cccccc; /* Set your desired active background color */
+  color: #fff; /* Set your desired active text color */
+}

@@ -1,27 +1,41 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, timer } from 'rxjs';
+import { switchMap, takeUntil } from 'rxjs/operators';
 import jwt_decode from 'jwt-decode';
 import { ILogin, ILoginResponse } from '../../interfaces/login.interface';
 import { IStudentRegister } from '../../interfaces/signup.interface';
-
-const BASE_URL = ["http://localhost:8060/"]
+import { BASE_URL } from '../../constants/baseurls.constant';
 
 @Injectable({
   providedIn: 'root'
 })
 export class JwtService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { 
+  }
 
   login(loginRequest: ILogin): Observable<ILoginResponse> {
     console.log("Logging in");
+    this.initLogoutTimer();
     return this.http.post<ILoginResponse>(BASE_URL + 'auth/login', loginRequest);
   }
 
   logout(): void {
     localStorage.removeItem('jwt');
     this.http.post(BASE_URL + 'logout', {});
+  }
+
+  private initLogoutTimer(): void {
+    const logoutTime = 12 * 60 * 60 * 1000; // 12 hours
+    timer(0, 1000) // Check every second
+      .pipe(
+        takeUntil(this.http.post(BASE_URL + 'logout', {})), // Stop timer when logout is triggered
+        switchMap(() => timer(logoutTime))
+      )
+      .subscribe(() => {
+        this.logout(); // Trigger automatic logout
+      });
   }
 
   extractRole(): string | null {
@@ -32,7 +46,7 @@ export class JwtService {
       // Access the role from the decoded JWT payload
       const role = decodedToken.role;
       // Now you can use the 'role' variable for access control or display purposes.
-      console.log('User Role:', role);
+      // console.log('User Role:', role);
       return role;
     } else {
       console.log('cannot extract role');
@@ -44,7 +58,7 @@ export class JwtService {
     if (jwtTok) {
       const decodedToken: any = jwt_decode(jwtTok);
       const user = decodedToken.sub;
-      console.log('User: ', user);
+      // console.log('User: ', user);
       return user;
     } else {
       console.log('cannot extract username');

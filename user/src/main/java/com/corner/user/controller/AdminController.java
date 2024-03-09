@@ -9,12 +9,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/user/admin")
@@ -35,6 +33,13 @@ public class AdminController {
         List<UserEntity> users = userCredentialService.getAllByRole(Role.TEACHER);
         return ResponseEntity.ok(users);
     }
+
+    @GetMapping("/teacher/{userId}")
+    public ResponseEntity<UserEntity> getTeacher(@PathVariable UUID userId) {
+        UserEntity user = userCredentialService.getById(userId);
+        return ResponseEntity.ok(user);
+    }
+
 
     @GetMapping("/allAdmins")
     public ResponseEntity<List<UserEntity>> getAllAdmins(){
@@ -63,11 +68,18 @@ public class AdminController {
 //    }
 //
     @GetMapping("/profile")
-    public ResponseEntity<UserEntity> getUserProfile(HttpServletRequest request){
+    public ResponseEntity<?> getUserProfile(HttpServletRequest request){
         String username = userCredentialService.extractUsername(request);
+
         UserEntity users = userCredentialService.getUserByEmail(username);
+        if(users!=null){
+            return ResponseEntity.ok(users);
+        } else {
+            StudentEntity student =studentService.getUserByEmail(username);
+            return ResponseEntity.ok(student);
+        }
 //        LOGGER.info("users" + users);
-        System.out.println(users);
-        return ResponseEntity.ok(users);
+//        System.out.println(users);
+//        return ResponseEntity.ok(users);
     }
 }

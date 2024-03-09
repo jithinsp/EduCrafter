@@ -11,15 +11,16 @@ import com.corner.user.entity.UserEntity;
 import com.corner.user.repository.StudentRepository;
 import com.corner.user.repository.UserCredentialRepository;
 import com.corner.user.util.JwtUtil;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class UserCredentialServiceImpl implements UserCredentialService {
@@ -36,7 +37,8 @@ public class UserCredentialServiceImpl implements UserCredentialService {
 
     public UserEntity addAdmin(RegisterStudentRequest registerStudentRequest) {
         if(userCredentialRepository.existsByEmail(registerStudentRequest.getEmail())){
-            throw new RuntimeException("Try with a different mail id");
+//            throw new RuntimeException("Try with a different mail id");
+            throw new DataIntegrityViolationException("Duplicate Mail id. Try with a different one");
         }
         UserEntity users = new UserEntity();
         BeanUtils.copyProperties(registerStudentRequest, users); //instead of getting and setting we can copy
@@ -51,11 +53,10 @@ public class UserCredentialServiceImpl implements UserCredentialService {
         return users;
     }
 
-
-
     public UserEntity addTeacher(RegisterTeacherRequest registerTeacherRequest) {
         if(userCredentialRepository.existsByEmail(registerTeacherRequest.getEmail())){
-            throw new RuntimeException("Try with a different mail id");
+//            throw new RuntimeException("Try with a different mail id");
+            throw new DataIntegrityViolationException("Duplicate Mail id. Try with a different one");
         }
         UserEntity newTeacher = new UserEntity();
         BeanUtils.copyProperties(registerTeacherRequest, newTeacher); //instead of getting and setting we can copy
@@ -77,7 +78,8 @@ public class UserCredentialServiceImpl implements UserCredentialService {
 
     public UserEntity addParent(RegisterParentRequest registerParentRequest) {
         if(userCredentialRepository.existsByEmail(registerParentRequest.getEmail())){
-            throw new RuntimeException("Try with a different mail id");
+//            throw new RuntimeException("Try with a different mail id");
+            throw new DataIntegrityViolationException("Duplicate Mail id. Try with a different one");
         }
         UserEntity newParent = new UserEntity();
         BeanUtils.copyProperties(registerParentRequest, newParent); //instead of getting and setting we can copy
@@ -87,7 +89,8 @@ public class UserCredentialServiceImpl implements UserCredentialService {
         UserEntity createdUser = userCredentialRepository.save(newParent);
         newParent.setId(createdUser.getId());
         StudentEntity student =
-                studentRepository.findById(registerParentRequest.getStudentId()).orElseThrow();
+                studentRepository.findById(registerParentRequest.getStudentId())
+                        .orElseThrow(() -> new EntityNotFoundException("Student with ID " + registerParentRequest.getStudentId() + " not found"));
         student.setParent(newParent);
         studentRepository.save(student);
         LoginDetails loginDetails = new LoginDetails(newParent.getId(),newParent.getEmail(),
@@ -95,7 +98,6 @@ public class UserCredentialServiceImpl implements UserCredentialService {
         loginClient.signupUser(loginDetails);
         return newParent;
     }
-
 
     public String extractUsername(HttpServletRequest request) {
         String header = request.getHeader("Authorization");
@@ -111,4 +113,9 @@ public class UserCredentialServiceImpl implements UserCredentialService {
         return userCredentialRepository.findByEmail(email);
     }
 
+    public UserEntity getById(UUID userId) {
+        return userCredentialRepository.findById(userId)
+                .orElseThrow(() -> new EntityNotFoundException("User with ID " + userId
+                        + " not found"));
+    }
 }

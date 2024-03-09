@@ -4,8 +4,7 @@ import { Observable } from 'rxjs';
 import { JwtService } from '../auth/jwt.service';
 import { IStudentResponse, ITeacherResponse } from '../../interfaces/signup.interface';
 import { User, UserModel } from '../../interfaces/user.model';
-
-const BASE_URL = ["http://localhost:8060/"]
+import { BASE_URL } from '../../constants/baseurls.constant';
 
 @Injectable({
   providedIn: 'root'
@@ -38,5 +37,26 @@ export class TeacherService {
     } else {
       return null;
     } 
+  }
+
+  getAttendanceOfStudents(): Observable<User[]>{
+    return this.http.get<User[]>(BASE_URL + 'user/teacher/allStudents');
+  }
+
+  getAttendance(): Observable<User[]>{
+    return this.http.get<User[]>(BASE_URL + 'user/attendance/getAll');
+  }
+
+  getAttendanceOfStudent(): Observable<any>{
+    const name = this.authService.extractUsername();
+    return this.http.get<any>(BASE_URL + 'user/attendance/getByStudent/'+name);
+  }
+
+  markAttendance(attendanceData:any[]) {
+    // const body = {
+    //   userId: userId,
+    //   isPresent: isPresent,
+    // };
+    return this.http.post(BASE_URL + 'user/attendance/mark',attendanceData);
   }
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { IAdminRegister, IAdminResponse, IParentRegister, IParentResponse, IStudentRegister, IStudentResponse, ITeacherRegister, ITeacherResponse, IUserRegister, IUserResponse } from '../../interfaces/signup.interface';
 import { Observable, of } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { JwtService } from '../auth/jwt.service';
 
 const BASE_URL = ["http://localhost:8060/"]
@@ -10,6 +10,7 @@ const BASE_URL = ["http://localhost:8060/"]
   providedIn: 'root'
 })
 export class AdminService {
+
 
   constructor(private http: HttpClient,
     private authService: JwtService) { }
@@ -48,6 +49,8 @@ export class AdminService {
       return of([]);
     }
   }
+
+
 
   // hello(): Observable<any> {
   //   const jwtToken = localStorage.getItem('jwt');

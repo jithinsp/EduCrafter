@@ -13,3 +13,9 @@
 //    @PostExchange("/register")
 //    public UserCredential registerUser(@RequestBody RegisterRequest registerRequest);
 //}
+//@GetMapping("/teacher/{userId}")
+//public ResponseEntity<UserEntity> getTeacher(@RequestParam UUID userId){
+//        UserEntity user = userCredentialService.getById(userId);
+//        return ResponseEntity.ok(user);
+//        }
+
